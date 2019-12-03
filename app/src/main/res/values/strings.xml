@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">PetEgg</string>
     <string name="backgroundImageTree">background</string>
+    <string name="backgroundImageHome">background</string>
     <string name="continueToHomeButton">Continue</string>
     <string name="bouncingEggImage">bouncing_egg</string>
+    <string name="petEggImage">pet_egg</string>
+    <string name="petegg">PetEgg</string>
+    <string name="continueSettings">buttonToSettingsScreen</string>
+    <string name="ContinueOutside">continueOutside</string>
+    <string name="feedPet">feedPet</string>
 </resources>
