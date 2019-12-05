@@ -14,4 +14,5 @@
     <string name="giveName">Give your egg a name!</string>
     <string name="hint">Eggbert</string>
     <string name="autofill">Eggbert</string>
+    <string name="nameYourPet">nameOfYourPet</string>
 </resources>

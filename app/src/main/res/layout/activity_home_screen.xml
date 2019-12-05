@@ -36,6 +36,17 @@
                 tools:layout_editor_absoluteY="-16dp">
 
 
+                <TextView
+                    android:id="@+id/nameOfPet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nameYourPet"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.050000012" />
+
                 <ImageView
                     android:id="@+id/feedButton"
                     android:layout_width="wrap_content"
@@ -86,7 +97,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/egg" />
+                    app:srcCompat="@drawable/egg_v1" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

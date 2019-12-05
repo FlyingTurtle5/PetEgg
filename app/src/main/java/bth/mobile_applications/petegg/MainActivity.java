@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Boolean eggAliveStatus = false;
         String lines = "";
 
+        //fix loading with STATUS="string"
         try {
             FileInputStream fileInputStream = openFileInput("PetEggFile.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -62,11 +63,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //all in one file?! that doesnt work?? 1000 files dont work either... make sure what to save!!!
-
-        if(lines.equalsIgnoreCase("true")){
-            eggAliveStatus = true;
-        }else{
-            eggAliveStatus = false;
+        if(lines != null) {
+            if (lines.equalsIgnoreCase("true")) {
+                eggAliveStatus = true;
+            } else {
+                eggAliveStatus = false;
+            }
         }
         return eggAliveStatus;
     }

@@ -7,6 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -15,7 +22,39 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+        loadPetName();
         goOutside();
+    }
+
+    private void loadPetName(){
+
+        String lines = "";
+
+        //fix loading with NAME="string"
+        //ERROR OCCURS: STRING FROM FILE IS NULL!!! FIND Cause -.-
+        //Think of permission to read and write to phone storage -> will check that later on o.o
+        try {
+            FileInputStream fileInputStream = openFileInput("PetEggFile.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer stringBuffer = new StringBuffer();
+
+            while ((lines = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lines + "\n");
+            }
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        TextView nameField = (TextView) findViewById(R.id.nameOfPet);
+        if(lines != null) {
+            nameField.setText(lines);
+        }else{
+            nameField.setText("null!?");
+        }
     }
 
     private void goOutside(){
