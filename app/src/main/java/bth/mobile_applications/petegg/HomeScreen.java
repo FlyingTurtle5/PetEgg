@@ -2,6 +2,7 @@ package bth.mobile_applications.petegg;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,13 +28,17 @@ public class HomeScreen extends AppCompatActivity {
         goOutside();
     }
 
+
+
     private void loadPetName(){
 
-        String lines = "";
+        String result = "";
 
         //fix loading with NAME="string"
         //ERROR OCCURS: STRING FROM FILE IS NULL!!! FIND Cause -.-
         //Think of permission to read and write to phone storage -> will check that later on o.o
+
+
         try {
             FileInputStream fileInputStream = openFileInput("PetEggFile.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -40,9 +46,14 @@ public class HomeScreen extends AppCompatActivity {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
 
+            String lines;
             while ((lines = bufferedReader.readLine()) != null) {
-                stringBuffer.append(lines + "\n");
+                stringBuffer.append(lines);
             }
+
+            fileInputStream.close();
+            result = stringBuffer.toString();
+
         } catch (FileNotFoundException e){
             e.printStackTrace();
         } catch (IOException e) {
@@ -50,8 +61,8 @@ public class HomeScreen extends AppCompatActivity {
         }
 
         TextView nameField = (TextView) findViewById(R.id.nameOfPet);
-        if(lines != null) {
-            nameField.setText(lines);
+        if(result != null) {
+            nameField.setText(result);
         }else{
             nameField.setText("null!?");
         }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Path;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        if(!fileExists("PetEggFile.txt")) {
+            new File("PetEggFile.txt");
+        }
 
         animateBackground();
         bouningEgg();
@@ -56,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
             while ((lines = bufferedReader.readLine()) != null) {
                 stringBuffer.append(lines + "\n");
             }
+
+            fileInputStream.close();
+
         } catch (FileNotFoundException e){
             e.printStackTrace();
         } catch (IOException e) {
@@ -89,6 +98,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public boolean fileExists(String filename) {
+        File file = this.getFileStreamPath(filename);
+        if(file == null || !file.exists()) {
+            return false;
+        }
+        return true;
     }
 
     /**
