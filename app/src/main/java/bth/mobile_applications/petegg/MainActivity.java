@@ -14,6 +14,12 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -31,19 +37,54 @@ public class MainActivity extends AppCompatActivity {
 
         animateBackground();
         bouningEgg();
-        configureHomeButton();
+        final Boolean eggStatus = checkEggStatus();
+        configureHomeButton(eggStatus);
+    }
+
+    private Boolean checkEggStatus(){
+        Boolean eggAliveStatus = false;
+        String lines = "";
+
+        try {
+            FileInputStream fileInputStream = openFileInput("PetEggFile.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer stringBuffer = new StringBuffer();
+
+            while ((lines = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lines + "\n");
+            }
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //all in one file?! that doesnt work?? 1000 files dont work either... make sure what to save!!!
+
+        if(lines.equalsIgnoreCase("true")){
+            eggAliveStatus = true;
+        }else{
+            eggAliveStatus = false;
+        }
+        return eggAliveStatus;
     }
 
     /**
      * Switches to the next Activity
      */
-    private void configureHomeButton(){
+    private void configureHomeButton(final Boolean eggAlive){
         Button continueToHome = (Button) findViewById(R.id.continueToHome);
 
         continueToHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, HomeScreen.class));
+                if(eggAlive == true) {
+                    startActivity(new Intent(MainActivity.this, HomeScreen.class));
+                }else{
+                    startActivity(new Intent(MainActivity.this, NameEgg.class));
+                }
             }
         });
     }

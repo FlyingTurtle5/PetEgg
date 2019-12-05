@@ -9,4 +9,9 @@
     <string name="continueSettings">buttonToSettingsScreen</string>
     <string name="ContinueOutside">continueOutside</string>
     <string name="feedPet">feedPet</string>
+    <string name="saveName">Save</string>
+    <string name="petNameInput">Name</string>
+    <string name="giveName">Give your egg a name!</string>
+    <string name="hint">Eggbert</string>
+    <string name="autofill">Eggbert</string>
 </resources>
