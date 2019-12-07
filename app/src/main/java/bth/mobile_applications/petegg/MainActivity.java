@@ -6,14 +6,19 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Path;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,6 +28,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
+
+    long id;
 
     /**
      * reminder: onCreate = main-function of the Activity window
@@ -43,15 +50,71 @@ public class MainActivity extends AppCompatActivity {
 
         animateBackground();
         bouningEgg();
-        final Boolean eggStatus = checkEggStatus();
+        getIdLastLivedEgg();
+        Boolean eggStatus = false;
+        if(id != 0L){
+            eggStatus = checkEggStatusDB();
+        }
         configureHomeButton(eggStatus);
     }
 
+    private void getIdLastLivedEgg(){
+        SQLConnection dbHelper = new SQLConnection(this);
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String column = "status";
+        String[] projection = {
+                BaseColumns._ID,
+                column
+        };
+
+        String selection = column + " = ?";
+        String[] selectionArgs = { Integer.toString(0) };
+
+        Long result = 0L;
+        try {
+            Cursor cursor = db.query(
+                    "petegg_data",   // The table to query
+                    projection,             // The array of columns to return (pass null to get all)
+                    selection,              // The columns for the WHERE clause
+                    selectionArgs,          // The values for the WHERE clause
+                    null,                   // don't group the rows
+                    null,                   // don't filter by row groups
+                    null);
+
+
+            while(cursor.moveToNext()) {
+                result = cursor.getLong(cursor.getColumnIndex("_id"));
+            }
+            cursor.close();
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        if(result != 0L){
+            id = result;
+        }
+
+        dbHelper.close();
+
+    }
+
+    private final Boolean checkEggStatusDB() {
+        Boolean eggAlive = true;
+
+        //calculate if the egg has survived till current date!
+
+
+        return eggAlive;
+    }
+
+    /*
     private Boolean checkEggStatus(){
         Boolean eggAliveStatus = false;
         String lines = "";
 
-        //fix loading with STATUS="string"
         try {
             FileInputStream fileInputStream = openFileInput("PetEggFile.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -71,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //all in one file?! that doesnt work?? 1000 files dont work either... make sure what to save!!!
         if(lines != null) {
             if (lines.equalsIgnoreCase("true")) {
                 eggAliveStatus = true;
@@ -81,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return eggAliveStatus;
     }
+    */
 
     /**
      * Switches to the next Activity
@@ -92,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(eggAlive == true) {
+                    HomeScreen.setId(id);
                     startActivity(new Intent(MainActivity.this, HomeScreen.class));
                 }else{
                     startActivity(new Intent(MainActivity.this, NameEgg.class));

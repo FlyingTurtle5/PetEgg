@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -12,10 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class NameEgg extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +37,19 @@ public class NameEgg extends AppCompatActivity {
         saveAndContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                writeFile();
+                //writeFile();
+                long id = saveInitDatabase();
+                HomeScreen.setId(id);
                 startActivity(new Intent(NameEgg.this, HomeScreen.class));
             }
         });
     }
 
+
     /**
      * saves the name to the internal Storage
      */
+    /*
     public void writeFile(){
 
         EditText nameToSave = (EditText) findViewById(R.id.nameField);
@@ -61,6 +66,36 @@ public class NameEgg extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+    */
+
+    /**
+     * Creates a new row entry for the new pet and returns the primary key
+     */
+    public long saveInitDatabase(){
+        EditText nameToSave = (EditText) findViewById(R.id.nameField);
+        String name = nameToSave.getText().toString();
+        if(name==""){
+            name = "Eggbert";
+        }
+
+        SQLConnection dbHelper = new SQLConnection(this);
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("PETNAME", name);
+        values.put("STATUS", 0);
+        values.put("AGE", 0);
+        values.put("BIRTHDAY", System.currentTimeMillis());
+        values.put("HEALTH", 100);
+        values.put("HAPPYNESS", 100);
+        values.put("HUNGER", 100);
+        values.put("LASTFED", System.currentTimeMillis());
+
+        long row = db.insert("petegg_data", null, values);
+        db.close();
+
+        return row;
     }
 
     /**
