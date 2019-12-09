@@ -44,14 +44,11 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        /*
-        if(!fileExists("PetEggFile.txt")) {
-            new File("PetEggFile.txt");
-        }
-        */
+
         animateBackground();
         bouningEgg();
-        getIdLastLivedEgg();
+        SQLQuerys querys = new SQLQuerys();
+        id = querys.getIdLastLivedEgg(this);
         Boolean eggStatus = false;
         if(id != 0L){
             eggStatus = checkEggStatusDB();
@@ -59,48 +56,7 @@ public class MainActivity extends AppCompatActivity {
         configureHomeButton(eggStatus);
     }
 
-    private void getIdLastLivedEgg(){
-        SQLConnection dbHelper = new SQLConnection(this);
 
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        String column = "status";
-        String[] projection = {
-                BaseColumns._ID,
-                column
-        };
-
-        String selection = column + " = ?";
-        String[] selectionArgs = { Integer.toString(0) };
-
-        Long result = 0L;
-        try {
-            Cursor cursor = db.query(
-                    "petegg_data",   // The table to query
-                    projection,             // The array of columns to return (pass null to get all)
-                    selection,              // The columns for the WHERE clause
-                    selectionArgs,          // The values for the WHERE clause
-                    null,                   // don't group the rows
-                    null,                   // don't filter by row groups
-                    null);
-
-
-            while(cursor.moveToNext()) {
-                result = cursor.getLong(cursor.getColumnIndex("_id"));
-            }
-            cursor.close();
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        if(result != 0L){
-            id = result;
-        }
-
-        dbHelper.close();
-
-    }
 
     private final Boolean checkEggStatusDB() {
         Boolean eggAlive = true;
@@ -111,72 +67,6 @@ public class MainActivity extends AppCompatActivity {
         return eggAlive;
     }
 
-    /*
-    private Boolean checkEggStatus(){
-        Boolean eggAliveStatus = false;
-        String lines = "";
-
-        try {
-            FileInputStream fileInputStream = openFileInput("PetEggFile.txt");
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            StringBuffer stringBuffer = new StringBuffer();
-
-            while ((lines = bufferedReader.readLine()) != null) {
-                stringBuffer.append(lines + "\n");
-            }
-
-            fileInputStream.close();
-
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if(lines != null) {
-            if (lines.equalsIgnoreCase("true")) {
-                eggAliveStatus = true;
-            } else {
-                eggAliveStatus = false;
-            }
-        }
-        return eggAliveStatus;
-    }
-    */
-/*
-    private void saveStringToDB(String column){
-        SQLConnection dbHelper = new SQLConnection(this);
-
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        String[] columns = {
-                column
-        };
-
-        String selection = column + " = ?"; // where ...
-        String[] selectionArgs = { Integer.toString(0) };  // columns where to add
-            //FIX THIS!!!
-        Long result = 0L;
-        try {
-            Cursor cursor = db.update("petegg_data",,selection,selectionArgs);
-
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        if(result != 0L){
-            id = result;
-        }
-
-        dbHelper.close();
-
-    }
-
- */
 
     /**
      * Switches to the next Activity
@@ -196,15 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    /*
-        public boolean fileExists(String filename) {
-            File file = this.getFileStreamPath(filename);
-            if(file == null || !file.exists()) {
-                return false;
-            }
-            return true;
-        }
-    *  /
+
     /**
      * Moves the backgroundimages like the pet is walking through woods
      */
