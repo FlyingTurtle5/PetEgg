@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         int hunger = SQLQuerys.loadIntFromDatabase(id, this, "hunger");
         if(health != 100){
             if(hunger > 90 && happyness > 90){
-                health += 4;
+                health += 2;
             }
             if(health > 100){
                 health = 100;
@@ -238,4 +238,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 }
