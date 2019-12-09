@@ -42,6 +42,8 @@ public class HomeScreen extends AppCompatActivity {
         SQLQuerys querys = new SQLQuerys();
         changeName(querys.loadStringFromDatabase(id,this,"petname"));
         goOutside();
+        feed();
+        health();
     }
 
     private void changeName(String name){
@@ -63,4 +65,18 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
     }
+
+    private void feed(){
+        ImageView feedButton = (ImageView) findViewById(R.id.feedButton);
+
+        feedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveIntToDatabase("hunger", 100);
+                health();
+            }
+        });
+    }
+
+
 }
