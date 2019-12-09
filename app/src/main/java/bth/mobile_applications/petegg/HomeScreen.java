@@ -43,7 +43,6 @@ public class HomeScreen extends AppCompatActivity {
         changeName(querys.loadStringFromDatabase(id,this,"petname"));
         goOutside();
         feed();
-        health();
     }
 
     private void changeName(String name){
@@ -72,8 +71,7 @@ public class HomeScreen extends AppCompatActivity {
         feedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveIntToDatabase("hunger", 100);
-                health();
+                SQLOuerys.saveIntToDatabase("hunger", 100);
             }
         });
     }

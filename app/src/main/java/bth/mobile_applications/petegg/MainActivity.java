@@ -28,6 +28,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import android.os.CountDownTimer;
+
 public class MainActivity extends AppCompatActivity {
 
     long id;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             eggStatus = checkEggStatusDB();
         }
         configureHomeButton(eggStatus);
+        changeStats();
     }
 
     private void getIdLastLivedEgg(){
@@ -244,13 +247,83 @@ public class MainActivity extends AppCompatActivity {
         animator.start();
     }
 
-    private void Timer(){
-        new CountDownTimer(10000*6*10, 1000){
-            public void onFinish() {
-                //change happyness+hunger+health
+    public void changeStats(){
+        changeStatsOnStart();
+        new CountDownTimer(1000*60*30, 1000) { //alle 30min
 
+            public void onTick(long millisUntilFinished) {
+                //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                changeHappyness();
+                changeHunger();
+                changeHealth();
+                //int time = aktuelle Zeit
+                SQLQuerys.saveIntToDatabase("lastlogin", time);
             }
         }.start();
     }
 
+    private void changeHealth(){
+        int health = SQLQuerys.loadIntFromDatabase(id, this, "health");
+        int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
+        int hunger = SQLQuerys.loadIntFromDatabase(id, this, "hunger");
+        if(health != 100){
+            if(hunger > 90 && happyness > 90){
+                health += 4;
+            }
+            if(health > 100){
+                health = 100;
+            }
+        }
+
+        if(hunger < 10){
+            health -= 2;
+        }
+        if(happyness < 10){
+            health -= 2;
+        }
+
+        if(health < 0){
+            health = 0;
+        }
+
+        SQLQuerys.saveIntToDatabase("health", health);
+    }
+
+    private void changeHappyness(){
+        int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
+        happyness -= 2;
+        if(happyness < 0){
+            happyness = 0;
+        }
+        if(happyness > 100){
+            happyness = 100;
+        }
+        SQLQuerys.saveIntToDatabase("happyness", happyness);
+    }
+
+    private void changeHunger(){
+        int hunger = SQLQuerys.loadIntFromDatabase(id, this, "hunger");
+        hunger -= 2;
+        if(hunger < 0){
+            hunger = 0;
+        }
+        if(hunger > 100){
+            hunger = 100;
+        }
+        SQLQuerys.saveIntToDatabase("hunger", hunger);
+    }
+
+    private void changeStatsOnStart(){
+        int health = SQLQuerys.loadIntFromDatabase(id, this, "health");
+        int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
+        int hunger = SQLQuerys.loadIntFromDatabase(id, this, "hunger");
+        int lastlogin = SQLQuerys.loadIntFromDatabase(id, this, "lastlogin");
+
+        //errechne Anzahl an 30min die nicht eigeloggt waren
+        //int time = aktuelle zeit
+
+    }
 }
