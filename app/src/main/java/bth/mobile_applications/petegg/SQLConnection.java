@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
 
 public final class SQLConnection extends SQLiteOpenHelper implements BaseColumns{
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "PetEgg.db";
 
     public static final String TABLE_NAME = "petegg_data";
@@ -22,7 +22,8 @@ public final class SQLConnection extends SQLiteOpenHelper implements BaseColumns
                     "health INTEGER, " +
                     "hunger INTEGER, " +
                     "lastfed INTEGER, " +
-                    "happyness INTEGER)";
+                    "happyness INTEGER," +
+                    "lastlogin INTEGER)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + SQLConnection.TABLE_NAME;

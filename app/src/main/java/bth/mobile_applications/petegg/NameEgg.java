@@ -91,6 +91,7 @@ public class NameEgg extends AppCompatActivity {
         values.put("HAPPYNESS", 100);
         values.put("HUNGER", 100);
         values.put("LASTFED", System.currentTimeMillis());
+        values.put("LASTLOGIN", System.currentTimeMillis());
 
         long row = db.insert("petegg_data", null, values);
         db.close();
