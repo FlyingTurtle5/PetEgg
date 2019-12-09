@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -43,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
+        /*
         if(!fileExists("PetEggFile.txt")) {
             new File("PetEggFile.txt");
         }
-
+        */
         animateBackground();
         bouningEgg();
         getIdLastLivedEgg();
@@ -144,6 +145,38 @@ public class MainActivity extends AppCompatActivity {
         return eggAliveStatus;
     }
     */
+/*
+    private void saveStringToDB(String column){
+        SQLConnection dbHelper = new SQLConnection(this);
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        String[] columns = {
+                column
+        };
+
+        String selection = column + " = ?"; // where ...
+        String[] selectionArgs = { Integer.toString(0) };  // columns where to add
+            //FIX THIS!!!
+        Long result = 0L;
+        try {
+            Cursor cursor = db.update("petegg_data",,selection,selectionArgs);
+
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        if(result != 0L){
+            id = result;
+        }
+
+        dbHelper.close();
+
+    }
+
+ */
 
     /**
      * Switches to the next Activity
@@ -163,15 +196,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    public boolean fileExists(String filename) {
-        File file = this.getFileStreamPath(filename);
-        if(file == null || !file.exists()) {
-            return false;
+    /*
+        public boolean fileExists(String filename) {
+            File file = this.getFileStreamPath(filename);
+            if(file == null || !file.exists()) {
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-
+    *  /
     /**
      * Moves the backgroundimages like the pet is walking through woods
      */
