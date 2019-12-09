@@ -42,6 +42,8 @@ public class HomeScreen extends AppCompatActivity {
         //loadPetName();
         loadFromDatabase();
         goOutside();
+        feed();
+        health();
     }
 
 
@@ -134,4 +136,18 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
     }
+
+    private void feed(){
+        ImageView feedButton = (ImageView) findViewById(R.id.feedButton);
+
+        feedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveIntToDatabase("hunger", 100);
+                health();
+            }
+        });
+    }
+
+
 }

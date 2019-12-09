@@ -211,4 +211,13 @@ public class MainActivity extends AppCompatActivity {
         animator.start();
     }
 
+    private void Timer(){
+        new CountDownTimer(10000*6*10, 1000){
+            public void onFinish() {
+                //change happyness+hunger+health
+
+            }
+        }.start();
+    }
+
 }
