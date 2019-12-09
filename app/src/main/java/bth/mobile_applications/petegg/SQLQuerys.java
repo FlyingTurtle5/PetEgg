@@ -24,7 +24,7 @@ public class SQLQuerys {
      * @param context Activity which executes the query
      * @return int result
      */
-    public int loadIntFromDatabase(long id, Context context, String column){
+    public static int loadIntFromDatabase(long id, Context context, String column){
         SQLConnection dbHelper = new SQLConnection(context);
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -69,7 +69,7 @@ public class SQLQuerys {
      * @param context Activity which executes the query
      * @return String result
      */
-    public String loadStringFromDatabase(long id, Context context, String column){
+    public static String loadStringFromDatabase(long id, Context context, String column){
         SQLConnection dbHelper = new SQLConnection(context);
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -113,7 +113,7 @@ public class SQLQuerys {
      * @param context Activity which executes the query
      * @return long id
      */
-    public long getIdLastLivedEgg(Context context){
+    public static long getIdLastLivedEgg(Context context){
         SQLConnection dbHelper = new SQLConnection(context);
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -162,7 +162,7 @@ public class SQLQuerys {
      * @param dataToInsert data to save
      * @return true for successfull save, false for error
      */
-    public Boolean saveStringToDB(long id, Context context, String column, String dataToInsert){
+    public static Boolean saveStringToDB(long id, Context context, String column, String dataToInsert){
         SQLConnection dbHelper = new SQLConnection(context);
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -199,7 +199,7 @@ public class SQLQuerys {
      * @param dataToInsert data to save
      * @return true for successfull save, false for error
      */
-    public Boolean saveIntToDB(long id, Context context, String column, int dataToInsert){
+    public static Boolean saveIntToDB(long id, Context context, String column, int dataToInsert){
         SQLConnection dbHelper = new SQLConnection(context);
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();

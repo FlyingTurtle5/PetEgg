@@ -42,7 +42,7 @@ public class HomeScreen extends AppCompatActivity {
         SQLQuerys querys = new SQLQuerys();
         changeName(querys.loadStringFromDatabase(id,this,"petname"));
         goOutside();
-        feed();
+        feed(this);
     }
 
     private void changeName(String name){
@@ -65,13 +65,13 @@ public class HomeScreen extends AppCompatActivity {
         });
     }
 
-    private void feed(){
+    private void feed(final Context activity){
         ImageView feedButton = (ImageView) findViewById(R.id.feedButton);
 
         feedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SQLOuerys.saveIntToDatabase("hunger", 100);
+                SQLQuerys.saveIntToDB(id, activity, "hunger", 100);
             }
         });
     }

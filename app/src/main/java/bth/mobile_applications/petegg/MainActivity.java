@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Path;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,6 +30,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import android.os.CountDownTimer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             eggStatus = checkEggStatusDB();
         }
         configureHomeButton(eggStatus);
-        changeStats();
+        changeStats(this);
     }
 
 
@@ -129,9 +132,11 @@ public class MainActivity extends AppCompatActivity {
         animator.start();
     }
 
-    public void changeStats(){
+    public void changeStats(final Context activity){
         changeStatsOnStart();
-        new CountDownTimer(1000*60*30, 1000) { //alle 30min
+        int z = 60*30;
+        z = 60; //to test
+        /*new CountDownTimer(1000*z, 1000) { //alle 30min
 
             public void onTick(long millisUntilFinished) {
                 //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
@@ -141,10 +146,24 @@ public class MainActivity extends AppCompatActivity {
                 changeHappyness();
                 changeHunger();
                 changeHealth();
-                //int time = aktuelle Zeit
-                SQLQuerys.saveIntToDatabase("lastlogin", time);
+                int time = (int)System.currentTimeMillis();
+                SQLQuerys.saveIntToDB(id, activity, "lastlogin", time);
             }
-        }.start();
+        }.start();*/
+        Timer timer = new Timer ();
+        TimerTask timeTask = new TimerTask() {
+            @Override
+            public void run () {
+                changeHappyness();
+                changeHunger();
+                changeHealth();
+                int time = (int)System.currentTimeMillis();
+                SQLQuerys.saveIntToDB(id, activity, "lastlogin", time);
+                Log.i("TestStats", "time " + time);
+            }
+        };
+
+        timer.schedule(timeTask, 0l, 1000*z);
     }
 
     private void changeHealth(){
@@ -171,7 +190,8 @@ public class MainActivity extends AppCompatActivity {
             health = 0;
         }
 
-        SQLQuerys.saveIntToDatabase("health", health);
+        SQLQuerys.saveIntToDB(id,this, "health", health);
+        Log.i("TestStats", "health " + health);
     }
 
     private void changeHappyness(){
@@ -183,7 +203,8 @@ public class MainActivity extends AppCompatActivity {
         if(happyness > 100){
             happyness = 100;
         }
-        SQLQuerys.saveIntToDatabase("happyness", happyness);
+        SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
+        Log.i("TestStats", "happyness " + happyness);
     }
 
     private void changeHunger(){
@@ -195,17 +216,26 @@ public class MainActivity extends AppCompatActivity {
         if(hunger > 100){
             hunger = 100;
         }
-        SQLQuerys.saveIntToDatabase("hunger", hunger);
+        SQLQuerys.saveIntToDB(id,this, "hunger", hunger);
+        Log.i("TestStats", "hunger " + hunger);
     }
 
     private void changeStatsOnStart(){
-        int health = SQLQuerys.loadIntFromDatabase(id, this, "health");
-        int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
-        int hunger = SQLQuerys.loadIntFromDatabase(id, this, "hunger");
         int lastlogin = SQLQuerys.loadIntFromDatabase(id, this, "lastlogin");
 
-        //errechne Anzahl an 30min die nicht eigeloggt waren
-        //int time = aktuelle zeit
+        int time = (int)System.currentTimeMillis();
+        int minutes = time/60000;
+        // every 30min
+        int z = 30;
+        z = 1; //to test
+        for(int i = 0; i < (minutes); i += z){
+            Log.i("TestStats", "For-Loop");
+            changeHappyness();
+            changeHunger();
+            changeHealth();
+            int endtime = (int)System.currentTimeMillis();
+            SQLQuerys.saveIntToDB(id,this, "lastlogin", endtime);
+        }
 
     }
 }
