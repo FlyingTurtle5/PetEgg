@@ -124,7 +124,7 @@ public class Outside extends AppCompatActivity {
 
         while(restSteps > 50){
             restSteps -= 50;
-            happyness += 4;
+            happyness += 6;
         }
         SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
     }

@@ -194,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
         if(health < 0){
             health = 0;
             Log.i("TestStats", "Pet is dead");
+            SQLQuerys.saveIntToDB(id,this, "status", 1);
         }
 
         SQLQuerys.saveIntToDB(id,this, "health", health);
@@ -253,6 +254,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         lightSensor.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        startService(new Intent(this, NotificationService.class));
     }
 
     protected void useLightSensor(float[] values){
