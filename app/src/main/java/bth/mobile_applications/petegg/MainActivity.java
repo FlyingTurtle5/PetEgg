@@ -32,10 +32,14 @@ import java.io.InputStreamReader;
 import android.os.CountDownTimer;
 import java.util.Timer;
 import java.util.TimerTask;
+import android.hardware.SensorManager;
 
 public class MainActivity extends AppCompatActivity {
 
     long id;
+    private LightSensor lightSensor;
+    private long lastTime;
+    private long firstTime;
 
     /**
      * reminder: onCreate = main-function of the Activity window
@@ -60,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         }
         configureHomeButton(eggStatus);
         changeStats(this);
+        lightSensor = new LightSensor((SensorManager)getSystemService(SENSOR_SERVICE), this);
     }
 
 
@@ -171,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
         int hunger = SQLQuerys.loadIntFromDatabase(id, this, "hunger");
         if(health != 100){
-            if(hunger > 90 && happyness > 90){
+            if(hunger > 80 && happyness > 80){
                 health += 2;
             }
             if(health > 100){
@@ -188,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(health < 0){
             health = 0;
+            Log.i("TestStats", "Pet is dead");
         }
 
         SQLQuerys.saveIntToDB(id,this, "health", health);
@@ -237,6 +243,49 @@ public class MainActivity extends AppCompatActivity {
             SQLQuerys.saveIntToDB(id,this, "lastlogin", endtime);
         }
 
+    }
+
+    protected void onResume() {
+        super.onResume();
+        lightSensor.onResume();
+    }
+
+    protected void onPause() {
+        super.onPause();
+        lightSensor.onPause();
+    }
+
+    protected void useLightSensor(float[] values){
+        Log.i("TestLight", "SensorChanged");
+        float currentLux = values[0];
+        if(currentLux > 50){
+            lastTime = System.currentTimeMillis();
+            Log.i("TestLight", "Pet is no longer sleeping");
+        }else{
+            if(lastTime == 0){
+                lastTime = System.currentTimeMillis();
+                firstTime = System.currentTimeMillis();
+            }else{
+                long currentTime = System.currentTimeMillis();
+                int z = 10;
+                z = 1; // to test
+                int happyness = 0;
+                if((currentTime - firstTime) > 60000*z){
+                    //Pet is sleeping (after z minutes)
+                    Log.i("TestLight", "Pet is sleeping");
+                    long time = (currentTime - lastTime)*60000; //in minutes
+
+                    //every z*3 minutes happyness will increase
+                    for(int i = 0; i < time; i += z*3){
+                        happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
+                        happyness += 6;
+                    }
+
+                    SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
+
+                }
+            }
+        }
     }
 
 }
