@@ -65,6 +65,23 @@ public class MainActivity extends AppCompatActivity {
         configureHomeButton(eggStatus);
         changeStats(this);
         lightSensor = new LightSensor((SensorManager)getSystemService(SENSOR_SERVICE), this);
+
+        calculateAge();
+        SQLQuerys.saveIntToDB(id,this, "lastlogin", (int) System.currentTimeMillis());
+
+
+    }
+
+    private void calculateAge(){
+        int birthday = SQLQuerys.loadIntFromDatabase(id, this, "birthday");
+        int currentTime = (int) System.currentTimeMillis();
+        int ms = currentTime - birthday;
+        int days = (int) (ms / (1000*60*60*24));
+        Log.i("TestAge", "Days: " + days);
+        int third = days / 100;
+        int second = (days - 100*third) / 10;
+        int first = days % 10;
+        Log.i("TestAge", "" + third + " " + second + " " + first);
     }
 
 
@@ -164,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                 changeHealth();
                 int time = (int)System.currentTimeMillis();
                 SQLQuerys.saveIntToDB(id, activity, "lastlogin", time);
-                Log.i("TestStats", "time " + time);
+                //Log.i("TestStats", "time " + time);
             }
         };
 
@@ -231,12 +248,12 @@ public class MainActivity extends AppCompatActivity {
         int lastlogin = SQLQuerys.loadIntFromDatabase(id, this, "lastlogin");
 
         int time = (int)System.currentTimeMillis();
-        int minutes = time/60000;
+        int minutes = time/6000;
         // every 30min
         int z = 30;
         z = 1; //to test
         for(int i = 0; i < (minutes); i += z){
-            Log.i("TestStats", "For-Loop");
+            //Log.i("TestStats", "For-Loop");
             changeHappyness();
             changeHunger();
             changeHealth();
@@ -260,12 +277,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         startService(new Intent(this, NotificationService.class));
+        Log.i("TestNotification", "Service started");
     }
 
     protected void useLightSensor(float[] values){
-        Log.i("TestLight", "SensorChanged");
+        //Log.i("TestLight", "SensorChanged");
         float currentLux = values[0];
-        if(currentLux > 50){
+        if(currentLux > 100){
             lastTime = System.currentTimeMillis();
             Log.i("TestLight", "Pet is no longer sleeping");
         }else{
@@ -277,10 +295,10 @@ public class MainActivity extends AppCompatActivity {
                 int z = 10;
                 z = 1; // to test
                 int happyness = 0;
-                if((currentTime - firstTime) > 60000*z){
+                if((currentTime - firstTime) > 6000*z){
                     //Pet is sleeping (after z minutes)
                     Log.i("TestLight", "Pet is sleeping");
-                    long time = (currentTime - lastTime)*60000; //in minutes
+                    long time = (currentTime - lastTime)/6000; //in minutes
 
                     //every z*3 minutes happyness will increase
                     for(int i = 0; i < time; i += z*3){

@@ -72,6 +72,7 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SQLQuerys.saveIntToDB(id, activity, "hunger", 100);
+                SQLQuerys.saveIntToDB(id, activity, "lastfed", (int) System.currentTimeMillis());
             }
         });
     }

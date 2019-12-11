@@ -122,16 +122,17 @@ public class Outside extends AppCompatActivity {
     private void increaseHappyness(){
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
 
-        while(restSteps > 50){
-            restSteps -= 50;
-            happyness += 6;
+        while(restSteps > 25){
+            restSteps -= 25;
+            happyness += 10;
+            Log.i("TestSteps", "Added Happyness ");
         }
         SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
     }
 
     public void stepCounter(Location newLocation){
         int distance = 0;
-        Log.i("TestSteps", "NewLocation " + lastLocation);
+        //Log.i("TestSteps", "NewLocation " + lastLocation);
         if(lastLocation == null){
             lastLocation = newLocation;
             distance = 0;
@@ -141,7 +142,7 @@ public class Outside extends AppCompatActivity {
             lastLocation = newLocation;
         }
 
-        Log.i("TestSteps", "Steps " + distance/2);
+        //Log.i("TestSteps", "Steps " + distance/2);
         allSteps += distance/2;
         restSteps += distance/2;
 

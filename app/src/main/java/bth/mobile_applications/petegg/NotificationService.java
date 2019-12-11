@@ -55,7 +55,7 @@ public class NotificationService extends Service {
         };
         int z = 120; //alle 2 Stunden
         z = 10; // to test
-        timer.schedule(timerTask, 60000, z*10000);
+        timer.schedule(timerTask, 60000, z*1000);
     }
 
     private void createNotification(){
@@ -76,6 +76,7 @@ public class NotificationService extends Service {
         assert notManager != null;
         notManager.notify((int) System.currentTimeMillis(), notBuilder.build());
         Log.i("TestNotification", "Notification send");
+        this.onDestroy();
     }
 
 }
