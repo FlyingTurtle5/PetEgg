@@ -8,10 +8,14 @@
 
     <LinearLayout
         android:id="@+id/fullscreenLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="#000000"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -32,16 +36,18 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:layout_editor_absoluteX="-16dp"
-                tools:layout_editor_absoluteY="-223dp">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
                 <TextView
                     android:id="@+id/joy"
                     android:layout_width="118dp"
                     android:layout_height="26dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="52dp"
+                    android:layout_marginBottom="8dp"
                     android:text="100% Joy"
                     android:textSize="18sp"
                     android:textStyle="normal|bold"
@@ -52,8 +58,8 @@
                     android:id="@+id/hunger"
                     android:layout_width="118dp"
                     android:layout_height="26dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="8dp"
                     android:text="100% Hunger"
                     android:textSize="18sp"
                     android:textStyle="normal|bold"
@@ -64,8 +70,8 @@
                     android:id="@+id/health"
                     android:layout_width="111dp"
                     android:layout_height="22dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginBottom="18dp"
+                    android:layout_marginStart="52dp"
+                    android:layout_marginBottom="15dp"
                     android:text="100% Health"
                     android:textSize="18sp"
                     android:textStyle="normal|bold"
@@ -79,16 +85,16 @@
                     android:text="@string/nameYourPet"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.154"
+                    app:layout_constraintHorizontal_bias="0.215"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.009" />
+                    app:layout_constraintVertical_bias="0.01" />
 
                 <ImageView
                     android:id="@+id/feedButton"
-                    android:layout_width="540px"
-                    android:layout_height="120px"
-                    android:layout_marginStart="20dp"
+                    android:layout_width="168dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="29dp"
                     android:layout_marginBottom="41dp"
                     android:background="@drawable/feedbutton"
@@ -101,13 +107,13 @@
 
                 <ImageView
                     android:id="@+id/doorButton"
-                    android:layout_width="44.67dp"
-                    android:layout_height="193.33dp"
+                    android:layout_width="44dp"
+                    android:layout_height="180dp"
                     android:background="@drawable/doorbutton"
                     android:contentDescription="@string/ContinueOutside"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.016"
+                    app:layout_constraintHorizontal_bias="0.046"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.763"
@@ -115,13 +121,13 @@
 
                 <ImageView
                     android:id="@+id/settingsButton"
-                    android:layout_width="82px"
-                    android:layout_height="90px"
+                    android:layout_width="24dp"
+                    android:layout_height="26dp"
                     android:background="@drawable/optionsbutton"
                     android:contentDescription="@string/continueSettings"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.002"
+                    app:layout_constraintHorizontal_bias="0.042"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.002"
@@ -131,12 +137,12 @@
                     android:id="@+id/homescreenEgg"
                     android:layout_width="145dp"
                     android:layout_height="160dp"
-                    android:layout_marginTop="370dp"
+                    android:layout_marginTop="330dp"
                     android:layout_marginBottom="50dp"
                     android:contentDescription="@string/petEggImage"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.502"
+                    app:layout_constraintHorizontal_bias="0.446"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
@@ -144,10 +150,10 @@
 
                 <ImageButton
                     android:id="@+id/TrophyButton"
-                    android:layout_width="182px"
-                    android:layout_height="186px"
+                    android:layout_width="57dp"
+                    android:layout_height="58dp"
                     android:layout_marginStart="52dp"
-                    android:layout_marginTop="79dp"
+                    android:layout_marginTop="109dp"
                     android:layout_marginEnd="46dp"
                     android:layout_marginBottom="418dp"
                     android:background="@drawable/trophybutton"
@@ -160,20 +166,20 @@
 
                 <ImageView
                     android:id="@+id/window"
-                    android:layout_width="360px"
-                    android:layout_height="384px"
+                    android:layout_width="120dp"
+                    android:layout_height="128dp"
                     android:layout_marginStart="56dp"
-                    android:layout_marginTop="56dp"
+                    android:layout_marginTop="36dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/date"
                     app:srcCompat="@drawable/window" />
 
                 <ImageView
                     android:id="@+id/date"
-                    android:layout_width="412px"
-                    android:layout_height="172px"
+                    android:layout_width="137dp"
+                    android:layout_height="57dp"
                     android:layout_marginStart="64dp"
-                    android:layout_marginTop="54dp"
+                    android:layout_marginTop="47dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/nameOfPet"
                     app:srcCompat="@drawable/date" />
