@@ -117,10 +117,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 final float progress = (float) animation.getAnimatedValue();
-                final float width = backgroundOne.getWidth();
-                final float translationX = width * progress;
-                backgroundOne.setTranslationX(translationX);
-                backgroundTwo.setTranslationX(translationX - width);
+                final float height = backgroundOne.getHeight();
+                final float translationY = height * progress;
+                backgroundOne.setTranslationY(translationY);
+                backgroundTwo.setTranslationY(translationY - height);
             }
         });
         animator.start();
