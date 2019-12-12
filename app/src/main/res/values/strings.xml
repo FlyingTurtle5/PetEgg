@@ -20,4 +20,5 @@
     <string name="receive_notifications_from_petegg">Receive notifications from PetEgg.</string>
     <string name="health">health</string>
     <string name="change_pet_health">change pet health</string>
+    <string name="allow_petegg_to_receive_information_about_current_location">Allow PetEgg to receive information about current location.</string>
 </resources>

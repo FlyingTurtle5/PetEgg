@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Switch;
 
@@ -20,6 +21,8 @@ public class SettingsMenue extends AppCompatActivity {
         saveAndContinueButton();
         toggle_dev_mode();
         setNotifications();
+        setLocation();
+        changeHealth();
     }
 
 
@@ -57,6 +60,25 @@ public class SettingsMenue extends AppCompatActivity {
     }
 
     /**
+     * Toggle Location.
+     */
+    private void setLocation(){
+
+        CheckBox location = (CheckBox) findViewById(R.id.location_toggle);
+
+        location.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked==true){
+                    //do something
+                }else{
+                    //do something else
+                }
+            }
+        });
+    }
+
+    /**
      * Toggle DevMode
      */
     private void toggle_dev_mode(){
@@ -72,6 +94,20 @@ public class SettingsMenue extends AppCompatActivity {
                 }else{
                     dev_frame.setVisibility(View.INVISIBLE);
                 }
+            }
+        });
+    }
+
+    private void changeHealth(){
+        Button changeHealth = (Button) findViewById(R.id.change_health);
+
+        changeHealth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText amount = (EditText)findViewById(R.id.enter_health);
+                int health = Integer.parseInt(amount.getText().toString());
+
+                //do something more
             }
         });
     }
