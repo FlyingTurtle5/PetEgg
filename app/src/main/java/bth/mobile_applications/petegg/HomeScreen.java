@@ -226,6 +226,7 @@ public class HomeScreen extends AppCompatActivity {
      */
     private void goSettings() {
         ImageView saveAndContinue = (ImageView) findViewById(R.id.settingsButton);
+        SettingsMenue.setId(id);
 
         saveAndContinue.setOnClickListener(new View.OnClickListener() {
             @Override
