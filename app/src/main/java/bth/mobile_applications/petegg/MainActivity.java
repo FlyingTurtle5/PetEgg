@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void changeHappyness(){
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
-        happyness -= 5;
+        happyness -= 2;
         if(happyness < 0){
             happyness = 0;
         }
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
         int lastlogin = SQLQuerys.loadIntFromDatabase(id, this, "lastlogin");
 
         int time = (int)System.currentTimeMillis();
-        int minutes = time/6000;
+        int minutes = time/1000*60;
         // every 30min
         int z = 30;
         if(MainActivity.devMode){

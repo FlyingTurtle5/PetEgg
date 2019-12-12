@@ -171,6 +171,7 @@ public class HomeScreen extends AppCompatActivity {
      * @param awake true=Pet is not sleeping
      */
     private void windowChange(boolean awake){
+        Log.i("TestLight", "Windowchange");
         ImageView window = (ImageView) findViewById(R.id.window);
         if(awake){
             window.setImageResource(R.drawable.window);
@@ -293,7 +294,12 @@ public class HomeScreen extends AppCompatActivity {
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
         long currentSwipe = System.currentTimeMillis();
 
-        if((currentSwipe - lastSwipe) < 6000*60*30 ){
+        int z = 30;
+        if(MainActivity.devMode){
+            z = 1;
+        }
+
+        if((currentSwipe - lastSwipe) < 1000*60*z ){
             happyness += 3;
             if(happyness > 100){
                 happyness = 100;
@@ -359,14 +365,14 @@ public class HomeScreen extends AppCompatActivity {
                 long currentTime = System.currentTimeMillis();
                 int z = 5;
                 if(MainActivity.devMode){
-                    z = 2;
+                    z = 1;
                 }
                 int happyness = 0;
-                if((currentTime - firstTime) > 6000*60*z){
+                if((currentTime - firstTime) > 1000*60*z){
                     //Pet is sleeping (after z minutes)
                     //Log.i("TestLight", "Pet is sleeping");
                     windowChange(false);
-                    long time = (currentTime - lastTime)/6000*60; //in minutes
+                    long time = (currentTime - lastTime)/1000*60; //in minutes
 
                     //every z*3 minutes happyness will increase
                     for(int i = 0; i < time; i += z*3){
@@ -459,7 +465,7 @@ public class HomeScreen extends AppCompatActivity {
      */
     private void changeHappynessd(){
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
-        happyness -= 5;
+        happyness -= 2;
         if(happyness < 0){
             happyness = 0;
         }

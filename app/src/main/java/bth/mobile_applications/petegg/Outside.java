@@ -65,7 +65,7 @@ public class Outside extends AppCompatActivity {
             bestProvider = locManager.getBestProvider(criteria, false);
 
             try {
-                locManager.requestLocationUpdates(bestProvider, 6000, 15, myLocListener);
+                locManager.requestLocationUpdates(bestProvider, 1000*60, 16, myLocListener);
             } catch (SecurityException unlikely) {
                 startActivity(new Intent(Outside.this, HomeScreen.class));
                 Log.e("Request", "Lost location permission. Could not request updates. ");
