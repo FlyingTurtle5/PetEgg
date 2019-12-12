@@ -61,6 +61,10 @@ public class HomeScreen extends AppCompatActivity {
 
     }
 
+    /**
+     * Changes Name of the pet
+     * @param name
+     */
     private void changeName(String name){
         TextView nameField = (TextView) findViewById(R.id.nameOfPet);
         if(name != null) {
@@ -70,6 +74,9 @@ public class HomeScreen extends AppCompatActivity {
         }
     }
 
+    /**
+     * Goes to the Outside Activity
+     */
     private void goOutside(){
         ImageView goOutsideButton = (ImageView) findViewById(R.id.doorButton);
 
@@ -81,6 +88,9 @@ public class HomeScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * Increases Happyness
+     */
     private void changeHappyness(){
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
         long currentSwipe = System.currentTimeMillis();
@@ -93,6 +103,10 @@ public class HomeScreen extends AppCompatActivity {
         SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
     }
 
+    /**
+     * Feeds the pet
+     * @param activity
+     */
     private void feed(final Context activity){
         ImageView feedButton = (ImageView) findViewById(R.id.feedButton);
 
@@ -121,6 +135,10 @@ public class HomeScreen extends AppCompatActivity {
         super.onDestroy();
     }
 
+    /**
+     * When LightSensor picks up on change. Methode decides if Pet is sleeping or not.
+     * @param values
+     */
     protected void useLightSensor(float[] values){
         //Log.i("TestLight", "SensorChanged");
         float currentLux = values[0];
@@ -140,7 +158,7 @@ public class HomeScreen extends AppCompatActivity {
                 int happyness = 0;
                 if((currentTime - firstTime) > 6000*z){
                     //Pet is sleeping (after z minutes)
-                    Log.i("TestLight", "Pet is sleeping");
+                    //Log.i("TestLight", "Pet is sleeping");
                     long time = (currentTime - lastTime)/6000; //in minutes
 
                     //every z*3 minutes happyness will increase
