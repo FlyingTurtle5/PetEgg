@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "135671185460",
+    "firebase_url": "https://petegg-b96f0.firebaseio.com",
+    "project_id": "petegg-b96f0",
+    "storage_bucket": "petegg-b96f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135671185460:android:fb301e9a97ec6f280b4a61",
+        "android_client_info": {
+          "package_name": "bth.mobile_applications.petegg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135671185460-f126mmm86cqtcp67jhhgc5isna6fcog3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bth.mobile_applications.petegg",
+            "certificate_hash": "48a3d003bbe28a549932a3c2cdf5f96b18fbbe1b"
+          }
+        },
+        {
+          "client_id": "135671185460-bhajpneju8qdcor06als87dgh3gusf5i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCruzeCO5MhDuNsgnExqWShTZRkiGWBcxM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135671185460-bhajpneju8qdcor06als87dgh3gusf5i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -57,7 +57,7 @@ public class Outside extends AppCompatActivity {
         bestProvider = locManager.getBestProvider(criteria, false);
 
         try {
-            locManager.requestLocationUpdates(bestProvider, 60000, 15, myLocListener);
+            locManager.requestLocationUpdates(bestProvider, 6000, 15, myLocListener);
         } catch (SecurityException unlikely) {
             Log.e("Request", "Lost location permission. Could not request updates. ");
         }
@@ -121,9 +121,12 @@ public class Outside extends AppCompatActivity {
 
     private void increaseHappyness(){
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
-
-        while(restSteps > 25){
-            restSteps -= 25;
+        int stepCost = 100;
+        if(MainActivity.devMode){
+            stepCost = 25;
+        }
+        while(restSteps > stepCost){
+            restSteps -= stepCost;
             happyness += 10;
             Log.i("TestSteps", "Added Happyness ");
         }

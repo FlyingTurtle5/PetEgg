@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.util.Log;
@@ -29,6 +30,10 @@ import java.util.function.LongToIntFunction;
 public class HomeScreen extends AppCompatActivity {
 
     static long id;
+    private LightSensor lightSensor;
+    private long lastTime;
+    private long firstTime;
+    private long lastSwipe = 0;
 
     public static void setId(long id) {
         HomeScreen.id = id;
@@ -41,8 +46,19 @@ public class HomeScreen extends AppCompatActivity {
 
         SQLQuerys querys = new SQLQuerys();
         changeName(querys.loadStringFromDatabase(id,this,"petname"));
+        lightSensor = new LightSensor((SensorManager)getSystemService(SENSOR_SERVICE), this);
         goOutside();
         feed(this);
+
+        //swipe
+        ImageView view = (ImageView)findViewById(R.id.homescreenEgg);
+        view.setOnTouchListener(new OnSwipeTouchListener(this) {
+            public void onSwipe() {
+                Log.i("TestSwipe", "Swiped");
+                changeHappyness();
+            }
+        });
+
     }
 
     private void changeName(String name){
@@ -65,6 +81,18 @@ public class HomeScreen extends AppCompatActivity {
         });
     }
 
+    private void changeHappyness(){
+        int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
+        long currentSwipe = System.currentTimeMillis();
+
+        if((currentSwipe - lastSwipe) < 6000*60*30 ){
+            happyness += 1;
+            lastSwipe = currentSwipe;
+        }
+
+        SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
+    }
+
     private void feed(final Context activity){
         ImageView feedButton = (ImageView) findViewById(R.id.feedButton);
 
@@ -76,6 +104,58 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
     }
+
+    protected void onResume() {
+        super.onResume();
+        lightSensor.onResume();
+    }
+
+    protected void onPause() {
+        super.onPause();
+        lightSensor.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.i("TestLight", "Pet is no longer sleeping");
+        super.onDestroy();
+    }
+
+    protected void useLightSensor(float[] values){
+        //Log.i("TestLight", "SensorChanged");
+        float currentLux = values[0];
+        if(currentLux > 100){
+            lastTime = System.currentTimeMillis();
+            Log.i("TestLight", "Pet is no longer sleeping");
+        }else{
+            if(lastTime == 0){
+                lastTime = System.currentTimeMillis();
+                firstTime = System.currentTimeMillis();
+            }else{
+                long currentTime = System.currentTimeMillis();
+                int z = 10;
+                if(MainActivity.devMode){
+                    z = 1;
+                }
+                int happyness = 0;
+                if((currentTime - firstTime) > 6000*z){
+                    //Pet is sleeping (after z minutes)
+                    Log.i("TestLight", "Pet is sleeping");
+                    long time = (currentTime - lastTime)/6000; //in minutes
+
+                    //every z*3 minutes happyness will increase
+                    for(int i = 0; i < time; i += z*3){
+                        happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
+                        happyness += 6;
+                    }
+
+                    SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
+
+                }
+            }
+        }
+    }
+
 
 
 }

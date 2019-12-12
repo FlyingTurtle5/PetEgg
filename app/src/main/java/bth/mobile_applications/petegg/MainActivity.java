@@ -37,9 +37,7 @@ import android.hardware.SensorManager;
 public class MainActivity extends AppCompatActivity {
 
     long id;
-    private LightSensor lightSensor;
-    private long lastTime;
-    private long firstTime;
+    public static boolean devMode;
 
     /**
      * reminder: onCreate = main-function of the Activity window
@@ -64,13 +62,14 @@ public class MainActivity extends AppCompatActivity {
         }
         configureHomeButton(eggStatus);
         changeStats(this);
-        lightSensor = new LightSensor((SensorManager)getSystemService(SENSOR_SERVICE), this);
 
         calculateAge();
         SQLQuerys.saveIntToDB(id,this, "lastlogin", (int) System.currentTimeMillis());
+        devMode = true;
 
 
     }
+
 
     private void calculateAge(){
         int birthday = SQLQuerys.loadIntFromDatabase(id, this, "birthday");
@@ -157,7 +156,9 @@ public class MainActivity extends AppCompatActivity {
     public void changeStats(final Context activity){
         changeStatsOnStart();
         int z = 60*30;
-        z = 60; //to test
+        if(MainActivity.devMode){
+            z = 60;
+        }
         /*new CountDownTimer(1000*z, 1000) { //alle 30min
 
             public void onTick(long millisUntilFinished) {
@@ -251,7 +252,9 @@ public class MainActivity extends AppCompatActivity {
         int minutes = time/6000;
         // every 30min
         int z = 30;
-        z = 1; //to test
+        if(MainActivity.devMode){
+            z = 1;
+        }
         for(int i = 0; i < (minutes); i += z){
             //Log.i("TestStats", "For-Loop");
             changeHappyness();
@@ -263,54 +266,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void onResume() {
-        super.onResume();
-        lightSensor.onResume();
-    }
-
-    protected void onPause() {
-        super.onPause();
-        lightSensor.onPause();
-    }
 
     @Override
     protected void onStop() {
         super.onStop();
         startService(new Intent(this, NotificationService.class));
         Log.i("TestNotification", "Service started");
-    }
-
-    protected void useLightSensor(float[] values){
-        //Log.i("TestLight", "SensorChanged");
-        float currentLux = values[0];
-        if(currentLux > 100){
-            lastTime = System.currentTimeMillis();
-            Log.i("TestLight", "Pet is no longer sleeping");
-        }else{
-            if(lastTime == 0){
-                lastTime = System.currentTimeMillis();
-                firstTime = System.currentTimeMillis();
-            }else{
-                long currentTime = System.currentTimeMillis();
-                int z = 10;
-                z = 1; // to test
-                int happyness = 0;
-                if((currentTime - firstTime) > 6000*z){
-                    //Pet is sleeping (after z minutes)
-                    Log.i("TestLight", "Pet is sleeping");
-                    long time = (currentTime - lastTime)/6000; //in minutes
-
-                    //every z*3 minutes happyness will increase
-                    for(int i = 0; i < time; i += z*3){
-                        happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
-                        happyness += 6;
-                    }
-
-                    SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
-
-                }
-            }
-        }
     }
 
 }

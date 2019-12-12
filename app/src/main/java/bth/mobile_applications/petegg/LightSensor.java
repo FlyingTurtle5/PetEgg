@@ -14,12 +14,12 @@ public class LightSensor implements SensorEventListener {
     private Sensor light;
     /*private long lastTime;
     private long firstTime;*/
-    private final MainActivity ma;
+    private final HomeScreen ma;
 
     static long id;
 
 
-    public LightSensor(SensorManager sm, MainActivity ma){
+    public LightSensor(SensorManager sm, HomeScreen ma){
         sensorManager = sm;
         this.ma = ma;
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);

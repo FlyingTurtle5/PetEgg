@@ -54,7 +54,9 @@ public class NotificationService extends Service {
           }
         };
         int z = 120; //alle 2 Stunden
-        z = 10; // to test
+        if(MainActivity.devMode){
+            z = 20;
+        }
         timer.schedule(timerTask, 60000, z*1000);
     }
 
