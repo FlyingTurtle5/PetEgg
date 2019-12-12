@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.location.Location;
 import android.location.Criteria;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -154,6 +155,9 @@ public class Outside extends AppCompatActivity {
         //Log.i("TestSteps", "Steps " + distance/2);
         allSteps += distance/2;
         restSteps += distance/2;
+
+        TextView happy = (TextView) findViewById(R.id.steps);
+        happy.setText("Steps: " + allSteps);
 
         increaseHappyness();
 

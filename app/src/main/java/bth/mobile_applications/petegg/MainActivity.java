@@ -63,28 +63,11 @@ public class MainActivity extends AppCompatActivity {
         configureHomeButton(eggStatus);
         changeStats(this);
 
-        calculateAge();
         SQLQuerys.saveIntToDB(id,this, "lastlogin", (int) System.currentTimeMillis());
         devMode = true;
 
 
     }
-
-    /**
-     * Calculates the Age of the Pet
-     */
-    private void calculateAge(){
-        int birthday = SQLQuerys.loadIntFromDatabase(id, this, "birthday");
-        int currentTime = (int) System.currentTimeMillis();
-        int ms = currentTime - birthday;
-        int days = (int) (ms / (1000*60*60*24));
-        Log.i("TestAge", "Days: " + days);
-        int third = days / 100;
-        int second = (days - 100*third) / 10;
-        int first = days % 10;
-        Log.i("TestAge", "" + third + " " + second + " " + first);
-    }
-
 
 
     private final Boolean checkEggStatusDB() {
