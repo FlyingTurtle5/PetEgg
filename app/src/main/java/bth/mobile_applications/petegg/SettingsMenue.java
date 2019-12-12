@@ -14,6 +14,12 @@ import android.widget.Switch;
 
 public class SettingsMenue extends AppCompatActivity {
 
+    static long id;
+
+    public static void setId(long id) {
+        HomeScreen.id = id;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,13 +77,19 @@ public class SettingsMenue extends AppCompatActivity {
 
         CheckBox location = (CheckBox) findViewById(R.id.location_toggle);
 
+        if(MainActivity.locOn){
+            location.setChecked(true);
+        }else{
+            location.setChecked(false);
+        }
+
         location.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked==true){
-                    //do something
+                    MainActivity.locOn = true;
                 }else{
-                    //do something else
+                    MainActivity.locOn = false;
                 }
             }
         });
@@ -119,7 +131,7 @@ public class SettingsMenue extends AppCompatActivity {
                 EditText amount = (EditText)findViewById(R.id.enter_health);
                 int health = Integer.parseInt(amount.getText().toString());
 
-                //do something more
+                SQLQuerys.saveIntToDB(id,SettingsMenue.this, "health", health);
             }
         });
     }
