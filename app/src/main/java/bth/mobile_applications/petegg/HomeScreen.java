@@ -2,6 +2,7 @@ package bth.mobile_applications.petegg;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -62,9 +63,38 @@ public class HomeScreen extends AppCompatActivity {
             public void onSwipe() {
                 Log.i("TestSwipe", "Swiped");
                 changeHappyness();
+                happyStars();
             }
         });
 
+    }
+
+
+    private void happyStars(){
+        final ImageView star = (ImageView)findViewById(R.id.happyStar);
+        final ImageView star1 = (ImageView)findViewById(R.id.happyStar1);
+        final ImageView star2 = (ImageView)findViewById(R.id.happyStar2);
+
+        ValueAnimator starrain = ValueAnimator.ofFloat(0.0f, 1.0f);
+        starrain.setRepeatCount(2);
+        starrain.setDuration(10000L);
+        starrain.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        float progress = (float) animation.getAnimatedValue();
+                        float width = star1.getWidth();
+                        float translationX = width * progress;
+                        star.setTranslationX(translationX);
+                        star.setTranslationX(translationX - width);
+                        float height = star1.getHeight();
+                        float translationY = width * progress;
+                        star1.setTranslationY(translationY);
+                        star1.setTranslationY(translationY - height);
+                        star1.setTranslationX(translationX);
+                        star1.setTranslationX(translationX + width);
+                }
+        });
+        starrain.start();
     }
 
     /**
