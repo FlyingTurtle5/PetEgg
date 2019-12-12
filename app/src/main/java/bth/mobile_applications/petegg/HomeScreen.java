@@ -300,7 +300,7 @@ public class HomeScreen extends AppCompatActivity {
         }
 
         if((currentSwipe - lastSwipe) < 1000*60*z ){
-            happyness += 3;
+            happyness += 10;
             if(happyness > 100){
                 happyness = 100;
             }
@@ -353,22 +353,22 @@ public class HomeScreen extends AppCompatActivity {
     protected void useLightSensor(float[] values){
         //Log.i("TestLight", "SensorChanged");
         float currentLux = values[0];
-        if(currentLux > 100){
-            lastTime = System.currentTimeMillis();
-            //Log.i("TestLight", "Pet is no longer sleeping");
-            windowChange(true);
-        }else{
-            if(lastTime == 0){
+        int z = 5;
+        if(MainActivity.devMode){
+            z = 1;
+        }
+        int happyness = 0;
+        long currentTime = System.currentTimeMillis();
+        if((currentTime - firstTime) > 1000*60*z){
+            if(currentLux > 100){
                 lastTime = System.currentTimeMillis();
-                firstTime = System.currentTimeMillis();
+                //Log.i("TestLight", "Pet is no longer sleeping");
+                windowChange(true);
             }else{
-                long currentTime = System.currentTimeMillis();
-                int z = 5;
-                if(MainActivity.devMode){
-                    z = 1;
-                }
-                int happyness = 0;
-                if((currentTime - firstTime) > 1000*60*z){
+                if(lastTime == 0){
+                    lastTime = System.currentTimeMillis();
+                    firstTime = System.currentTimeMillis();
+                }else{
                     //Pet is sleeping (after z minutes)
                     //Log.i("TestLight", "Pet is sleeping");
                     windowChange(false);
