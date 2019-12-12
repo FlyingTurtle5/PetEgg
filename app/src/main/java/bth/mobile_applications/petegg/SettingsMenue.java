@@ -43,14 +43,19 @@ public class SettingsMenue extends AppCompatActivity {
     private void setNotifications(){
 
         CheckBox notification = (CheckBox) findViewById(R.id.notifications_toggle);
+        if(MainActivity.notOn){
+            notification.setChecked(true);
+        }else{
+            notification.setChecked(false);
+        }
 
         notification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked==true){
-                    //do something
+                    MainActivity.notOn = true;
                 }else{
-                    //do something else
+                    MainActivity.notOn = false;
                 }
             }
         });
@@ -62,6 +67,11 @@ public class SettingsMenue extends AppCompatActivity {
     private void toggle_dev_mode(){
 
         Switch dev_mode_on = (Switch) findViewById(R.id.developer_mode);
+        if(MainActivity.devMode){
+            dev_mode_on.setChecked(true);
+        }else{
+            dev_mode_on.setChecked(false);
+        }
 
         dev_mode_on.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -69,8 +79,10 @@ public class SettingsMenue extends AppCompatActivity {
                 FrameLayout dev_frame = findViewById(R.id.dev_frame);
                 if(isChecked==true) {
                     dev_frame.setVisibility(View.VISIBLE);
+                    MainActivity.devMode = true;
                 }else{
                     dev_frame.setVisibility(View.INVISIBLE);
+                    MainActivity.devMode = false;
                 }
             }
         });
