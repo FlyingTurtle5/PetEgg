@@ -77,7 +77,7 @@ public class HomeScreen extends AppCompatActivity {
 
         ValueAnimator starrain = ValueAnimator.ofFloat(0.0f, 1.0f);
         starrain.setRepeatCount(2);
-        starrain.setDuration(10000L);
+        starrain.setDuration(100L);
         starrain.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
@@ -86,12 +86,13 @@ public class HomeScreen extends AppCompatActivity {
                         float translationX = width * progress;
                         star.setTranslationX(translationX);
                         star.setTranslationX(translationX - width);
+                        float progress1 = (float) animation.getAnimatedValue();
                         float height = star1.getHeight();
-                        float translationY = width * progress;
+                        float translationY = height * progress1;
                         star1.setTranslationY(translationY);
                         star1.setTranslationY(translationY - height);
-                        star1.setTranslationX(translationX);
-                        star1.setTranslationX(translationX + width);
+                        star2.setTranslationX(translationX);
+                        star2.setTranslationX(translationX + width);
                 }
         });
         starrain.start();

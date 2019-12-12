@@ -92,6 +92,8 @@ public class Outside extends AppCompatActivity {
     private void animateBackground() {
         final ImageView backgroundOne = (ImageView) findViewById(R.id.backgroundTreeOne);
         final ImageView backgroundTwo = (ImageView) findViewById(R.id.backgroundTreeTwo);
+        final ImageView snowflakeOne = (ImageView) findViewById(R.id.snowdrop);
+        final ImageView snowflakeTwo = (ImageView) findViewById(R.id.snowdrop1);
 
         final ValueAnimator animator = ValueAnimator.ofFloat(0.0f, 1.0f);
         animator.setRepeatCount(ValueAnimator.INFINITE);
@@ -105,6 +107,11 @@ public class Outside extends AppCompatActivity {
                 final float translationX = width * progress;
                 backgroundOne.setTranslationX(translationX);
                 backgroundTwo.setTranslationX(translationX - width);
+                final float progress1 = (float) animation.getAnimatedValue();
+                final float height = snowflakeOne.getHeight();
+                final float translationY = height * progress1;
+                snowflakeOne.setTranslationY(translationY);
+                snowflakeTwo.setTranslationY(translationY - height);
             }
         });
         animator.start();
