@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void changeHappyness(){
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
-        happyness -= 2;
+        happyness -= 5;
         if(happyness < 0){
             happyness = 0;
         }

@@ -49,6 +49,9 @@ public class Outside extends AppCompatActivity {
         bouningEgg();
         configureHomeButton();
 
+        TextView s = (TextView) findViewById(R.id.steps);
+        s.setText("Steps: " + allSteps);
+
         //Location
         myLocListener = new MyLocationListener(this);
         locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -124,13 +127,16 @@ public class Outside extends AppCompatActivity {
      */
     private void increaseHappyness(){
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
-        int stepCost = 100;
+        int stepCost = 200;
         if(MainActivity.devMode){
-            stepCost = 25;
+            stepCost = 100;
         }
         while(restSteps > stepCost){
             restSteps -= stepCost;
             happyness += 10;
+            if(happyness > 100){
+                happyness = 100;
+            }
             Log.i("TestSteps", "Added Happyness ");
         }
         SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
@@ -156,8 +162,8 @@ public class Outside extends AppCompatActivity {
         allSteps += distance/2;
         restSteps += distance/2;
 
-        TextView happy = (TextView) findViewById(R.id.steps);
-        happy.setText("Steps: " + allSteps);
+        TextView s = (TextView) findViewById(R.id.steps);
+        s.setText("Steps: " + allSteps);
 
         increaseHappyness();
 

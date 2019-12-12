@@ -196,6 +196,9 @@ public class HomeScreen extends AppCompatActivity {
 
         if((currentSwipe - lastSwipe) < 6000*60*30 ){
             happyness += 1;
+            if(happyness > 100){
+                happyness = 100;
+            }
             lastSwipe = currentSwipe;
         }
 
@@ -355,7 +358,7 @@ public class HomeScreen extends AppCompatActivity {
      */
     private void changeHappynessd(){
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
-        happyness -= 2;
+        happyness -= 5;
         if(happyness < 0){
             happyness = 0;
         }
