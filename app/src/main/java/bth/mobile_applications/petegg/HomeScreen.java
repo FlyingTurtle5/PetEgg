@@ -3,6 +3,7 @@ package bth.mobile_applications.petegg;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
+import android.animation.TimeAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
@@ -72,12 +73,27 @@ public class HomeScreen extends AppCompatActivity {
             public void onSwipe() {
                 Log.i("TestSwipe", "Swiped");
                 changeHappyness();
-                setStarsVisible(true);
-                happyStars();
-                setStarsVisible(false);
+                //animationThread();
             }
         });
 
+    }
+
+    private void animationThread(){
+        Runnable runnable = new Runnable(){
+            public void run() {
+                try {
+                    setStarsVisible(true);
+                    happyStars();
+                    wait(3);
+                    setStarsVisible(false);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 
 
@@ -87,9 +103,9 @@ public class HomeScreen extends AppCompatActivity {
         ImageView star2 = (ImageView) findViewById(R.id.happyStar2);
 
         if(visible == true){
-        star.setVisibility(View.VISIBLE);
-        star1.setVisibility(View.VISIBLE);
-        star2.setVisibility(View.VISIBLE);
+            star.setVisibility(View.VISIBLE);
+            star1.setVisibility(View.VISIBLE);
+            star2.setVisibility(View.VISIBLE);
         }else{
             star.setVisibility(View.INVISIBLE);
             star1.setVisibility(View.INVISIBLE);
@@ -102,7 +118,7 @@ public class HomeScreen extends AppCompatActivity {
         final ImageView star1 = (ImageView)findViewById(R.id.happyStar1);
         final ImageView star2 = (ImageView)findViewById(R.id.happyStar2);
 
-        final ValueAnimator starrain = ValueAnimator.ofFloat(0.0f, 1.0f);
+        final ValueAnimator starrain = TimeAnimator.ofFloat(0.0f, 1.0f);
         starrain.setDuration(1000L);
         starrain.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
