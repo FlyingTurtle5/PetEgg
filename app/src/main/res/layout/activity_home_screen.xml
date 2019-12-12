@@ -72,7 +72,7 @@
                     android:layout_height="22dp"
                     android:layout_marginStart="52dp"
                     android:layout_marginBottom="15dp"
-                    android:text="100% Health"
+                    android:text="100% health"
                     android:textSize="18sp"
                     android:textStyle="normal|bold"
                     app:layout_constraintBottom_toTopOf="@+id/joy"
@@ -152,7 +152,6 @@
                     android:id="@+id/TrophyButton"
                     android:layout_width="57dp"
                     android:layout_height="58dp"
-                    android:layout_marginStart="52dp"
                     android:layout_marginTop="109dp"
                     android:layout_marginEnd="46dp"
                     android:layout_marginBottom="418dp"
@@ -160,7 +159,6 @@
                     android:scaleType="fitXY"
                     app:layout_constraintBottom_toTopOf="@+id/feedButton"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/date"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/trophybutton" />
 
@@ -169,20 +167,39 @@
                     android:layout_width="120dp"
                     android:layout_height="128dp"
                     android:layout_marginStart="56dp"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginBottom="22dp"
+                    app:layout_constraintBottom_toTopOf="@+id/doorButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/date"
                     app:srcCompat="@drawable/window" />
 
                 <ImageView
-                    android:id="@+id/date"
-                    android:layout_width="137dp"
-                    android:layout_height="57dp"
-                    android:layout_marginStart="64dp"
-                    android:layout_marginTop="47dp"
+                    android:id="@+id/hundreds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="73dp"
+                    android:layout_marginBottom="42dp"
+                    app:layout_constraintBottom_toTopOf="@+id/window"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nameOfPet"
-                    app:srcCompat="@drawable/date" />
+                    app:srcCompat="@drawable/number10" />
+
+                <ImageView
+                    android:id="@+id/tens"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="42dp"
+                    app:layout_constraintBottom_toTopOf="@+id/window"
+                    app:layout_constraintStart_toEndOf="@+id/hundreds"
+                    app:srcCompat="@drawable/number10" />
+
+                <ImageView
+                    android:id="@+id/ones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginBottom="42dp"
+                    app:layout_constraintBottom_toTopOf="@+id/window"
+                    app:layout_constraintStart_toEndOf="@+id/tens"
+                    app:srcCompat="@drawable/number10" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
