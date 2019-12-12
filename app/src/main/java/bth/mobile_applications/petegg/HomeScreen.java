@@ -42,6 +42,7 @@ public class HomeScreen extends AppCompatActivity {
     private long lastSwipe = 0;
     public static int changeHealth;
     public static boolean toChange;
+    private long lastChange;
 
     public static void setId(long id) {
         HomeScreen.id = id;
@@ -171,12 +172,19 @@ public class HomeScreen extends AppCompatActivity {
      * @param awake true=Pet is not sleeping
      */
     private void windowChange(boolean awake){
-        Log.i("TestLight", "Windowchange");
-        ImageView window = (ImageView) findViewById(R.id.window);
-        if(awake){
-            window.setImageResource(R.drawable.window);
-        }else{
-            window.setImageResource(R.drawable.windownight);
+        long currentTime = System.currentTimeMillis();
+        int z = 10;
+        if(MainActivity.devMode){
+            z = 1;
+        }
+        if((currentTime - lastChange) > 1000*60*z){
+            Log.i("TestLight", "Windowchange");
+            ImageView window = (ImageView) findViewById(R.id.window);
+            if (awake) {
+                window.setImageResource(R.drawable.window);
+            } else {
+                window.setImageResource(R.drawable.windownight);
+            }
         }
     }
 
@@ -359,8 +367,8 @@ public class HomeScreen extends AppCompatActivity {
         }
         int happyness = 0;
         long currentTime = System.currentTimeMillis();
-        if((currentTime - firstTime) > 1000*60*z){
-            if(currentLux > 100){
+
+        /*if(currentLux > 100){
                 lastTime = System.currentTimeMillis();
                 //Log.i("TestLight", "Pet is no longer sleeping");
                 windowChange(true);
@@ -385,6 +393,27 @@ public class HomeScreen extends AppCompatActivity {
 
                 }
             }
+        }*/
+
+        if(currentLux > 100){
+            windowChange(true);
+        }else{
+            if(lastTime == 0) {
+                lastTime = System.currentTimeMillis();
+            }
+            currentTime = System.currentTimeMillis();
+            windowChange(false);
+
+            long time = (currentTime - lastTime)/1000*60; //in minutes
+
+            happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
+            //every z minutes happyness will increase
+            for(int i = 0; i < time; i += 1*z){
+                happyness += 2;
+            }
+
+            SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
+            displayStats();
         }
     }
 
