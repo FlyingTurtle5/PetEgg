@@ -311,9 +311,9 @@ public class HomeScreen extends AppCompatActivity {
                 firstTime = System.currentTimeMillis();
             }else{
                 long currentTime = System.currentTimeMillis();
-                int z = 10;
+                int z = 15;
                 if(MainActivity.devMode){
-                    z = 1;
+                    z = 5;
                 }
                 int happyness = 0;
                 if((currentTime - firstTime) > 6000*z){
@@ -329,6 +329,7 @@ public class HomeScreen extends AppCompatActivity {
                     }
 
                     SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
+                    displayStats();
 
                 }
             }
