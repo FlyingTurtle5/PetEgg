@@ -95,7 +95,7 @@
                     android:layout_width="168dp"
                     android:layout_height="38dp"
                     android:layout_marginStart="4dp"
-                    android:layout_marginTop="29dp"
+                    android:layout_marginTop="18dp"
                     android:layout_marginBottom="41dp"
                     android:background="@drawable/feedbutton"
                     android:contentDescription="@string/feedPet"
@@ -137,16 +137,13 @@
                     android:id="@+id/homescreenEgg"
                     android:layout_width="145dp"
                     android:layout_height="160dp"
-                    android:layout_marginTop="330dp"
-                    android:layout_marginBottom="50dp"
+                    android:layout_marginTop="340dp"
                     android:contentDescription="@string/petEggImage"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.446"
+                    app:layout_constraintHorizontal_bias="0.451"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/egg_v1" />
+                    app:srcCompat="@drawable/animal1" />
 
                 <ImageButton
                     android:id="@+id/TrophyButton"

@@ -67,6 +67,18 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/steps"
+                    android:layout_width="89dp"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="134dp"
+                    android:layout_marginTop="182dp"
+                    android:text="steps"
+                    android:textSize="36sp"
+                    android:textStyle="normal|bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
