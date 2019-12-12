@@ -39,6 +39,8 @@ public class HomeScreen extends AppCompatActivity {
     private long lastTime;
     private long firstTime;
     private long lastSwipe = 0;
+    public static int changeHealth;
+    public static boolean toChange;
 
     public static void setId(long id) {
         HomeScreen.id = id;
@@ -58,6 +60,11 @@ public class HomeScreen extends AppCompatActivity {
         goSettings();
         feed(this);
         calculateAge();
+
+        if(toChange){
+            SQLQuerys.saveIntToDB(id,this, "health", changeHealth);
+            toChange = false;
+        }
 
         //swipe
         ImageView view = (ImageView) findViewById(R.id.homescreenEgg);

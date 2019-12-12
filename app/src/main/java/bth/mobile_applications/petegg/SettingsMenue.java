@@ -135,8 +135,8 @@ public class SettingsMenue extends AppCompatActivity {
             public void onClick(View v) {
                 EditText amount = (EditText)findViewById(R.id.enter_health);
                 int health = Integer.parseInt(amount.getText().toString());
-
-                SQLQuerys.saveIntToDB(id,SettingsMenue.this, "health", health);
+                HomeScreen.changeHealth = health;
+                HomeScreen.toChange = true;
             }
         });
     }
