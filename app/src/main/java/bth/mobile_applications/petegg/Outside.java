@@ -53,17 +53,20 @@ public class Outside extends AppCompatActivity {
         s.setText("Steps: " + allSteps);
 
         //Location
-        myLocListener = new MyLocationListener(this);
-        locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        criteria = new Criteria();
-        criteria.setPowerRequirement(Criteria.POWER_LOW);
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        bestProvider = locManager.getBestProvider(criteria, false);
+        if(MainActivity.locOn) {
+            myLocListener = new MyLocationListener(this);
+            locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            criteria = new Criteria();
+            criteria.setPowerRequirement(Criteria.POWER_LOW);
+            criteria.setAccuracy(Criteria.ACCURACY_FINE);
+            bestProvider = locManager.getBestProvider(criteria, false);
 
-        try {
-            locManager.requestLocationUpdates(bestProvider, 6000, 15, myLocListener);
-        } catch (SecurityException unlikely) {
-            Log.e("Request", "Lost location permission. Could not request updates. ");
+            try {
+                locManager.requestLocationUpdates(bestProvider, 6000, 15, myLocListener);
+            } catch (SecurityException unlikely) {
+                startActivity(new Intent(Outside.this, HomeScreen.class));
+                Log.e("Request", "Lost location permission. Could not request updates. ");
+            }
         }
 
     }

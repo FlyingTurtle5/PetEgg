@@ -11,6 +11,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import android.os.Handler;
 import android.util.Log;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningAppProcessInfo;
 
 /**
  * Notification Service, sends Notification every time the MainActivity is destroyed
@@ -71,24 +73,29 @@ public class NotificationService extends Service {
      * Creates the notification that will be send
      */
     private void createNotification(){
-        NotificationManager notManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        NotificationCompat.Builder notBuilder = new NotificationCompat.Builder(getApplicationContext(), "default");
-        notBuilder.setContentTitle("PetEgg");
-        notBuilder.setContentText("It's time to look after your Pet!");
-        notBuilder.setTicker("It's time to look after your Pet!");
-        notBuilder.setSmallIcon(R.drawable.ic_launcher_foreground);
-        notBuilder.setAutoCancel(true);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O ) {
-            int importance = NotificationManager.IMPORTANCE_HIGH ;
-            NotificationChannel notificationChannel = new NotificationChannel( "10001", "NOTIFICATION_CHANNEL_NAME", importance) ;
-            notBuilder.setChannelId("10001") ;
+        RunningAppProcessInfo myProcess = new RunningAppProcessInfo();
+        ActivityManager.getMyMemoryState(myProcess);
+        boolean isInBackground = myProcess.importance != RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+        if(isInBackground) {
+            NotificationManager notManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            NotificationCompat.Builder notBuilder = new NotificationCompat.Builder(getApplicationContext(), "default");
+            notBuilder.setContentTitle("PetEgg");
+            notBuilder.setContentText("It's time to look after your Pet!");
+            notBuilder.setTicker("It's time to look after your Pet!");
+            notBuilder.setSmallIcon(R.drawable.ic_launcher_foreground);
+            notBuilder.setAutoCancel(true);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+                NotificationChannel notificationChannel = new NotificationChannel("10001", "NOTIFICATION_CHANNEL_NAME", importance);
+                notBuilder.setChannelId("10001");
+                assert notManager != null;
+                notManager.createNotificationChannel(notificationChannel);
+            }
             assert notManager != null;
-            notManager.createNotificationChannel(notificationChannel) ;
+            notManager.notify((int) System.currentTimeMillis(), notBuilder.build());
+            Log.i("TestNotification", "Notification send");
+            this.onDestroy();
         }
-        assert notManager != null;
-        notManager.notify((int) System.currentTimeMillis(), notBuilder.build());
-        Log.i("TestNotification", "Notification send");
-        this.onDestroy();
     }
 
 }
