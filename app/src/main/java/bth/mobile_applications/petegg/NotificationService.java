@@ -12,6 +12,9 @@ import java.util.TimerTask;
 import android.os.Handler;
 import android.util.Log;
 
+/**
+ * Notification Service, sends Notification every time the MainActivity is destroyed
+ */
 public class NotificationService extends Service {
 
     Timer timer;
@@ -42,6 +45,9 @@ public class NotificationService extends Service {
         super.onDestroy();
     }
 
+    /**
+     * Starts Timer, that will send notification after a specific amount of time
+     */
     public void startTimer(){
         timer = new Timer();
         timerTask = new TimerTask(){
@@ -60,6 +66,10 @@ public class NotificationService extends Service {
         timer.schedule(timerTask, 60000, z*1000);
     }
 
+
+    /**
+     * Creates the notification that will be send
+     */
     private void createNotification(){
         NotificationManager notManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         NotificationCompat.Builder notBuilder = new NotificationCompat.Builder(getApplicationContext(), "default");

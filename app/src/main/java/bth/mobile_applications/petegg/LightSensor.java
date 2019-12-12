@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.content.Context;
 import android.util.Log;
 
+/**
+ * Class for the Lightsensor, that sends information every time the light changes
+ */
 public class LightSensor implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor light;

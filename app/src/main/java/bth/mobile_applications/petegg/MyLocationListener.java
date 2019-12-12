@@ -4,6 +4,9 @@ import android.location.LocationListener;
 import android.location.Location;
 import android.os.Bundle;
 
+/**
+ * LocationListener sends Location information everytime the Location changes
+ */
 public class MyLocationListener implements LocationListener{
 
     private final Outside out;

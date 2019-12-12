@@ -118,7 +118,9 @@ public class Outside extends AppCompatActivity {
         animator.start();
     }
 
-
+    /**
+     * Increases Happyness
+     */
     private void increaseHappyness(){
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
         int stepCost = 100;
@@ -133,6 +135,10 @@ public class Outside extends AppCompatActivity {
         SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
     }
 
+    /**
+     * Calculates the steps taken from last Locationchange.
+     * @param newLocation
+     */
     public void stepCounter(Location newLocation){
         int distance = 0;
         //Log.i("TestSteps", "NewLocation " + lastLocation);

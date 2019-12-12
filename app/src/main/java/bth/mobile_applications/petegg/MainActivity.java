@@ -70,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Calculates the Age of the Pet
+     */
     private void calculateAge(){
         int birthday = SQLQuerys.loadIntFromDatabase(id, this, "birthday");
         int currentTime = (int) System.currentTimeMillis();
@@ -153,6 +155,10 @@ public class MainActivity extends AppCompatActivity {
         animator.start();
     }
 
+    /**
+     * Changes the Stats of the pet in regular intervals
+     * @param activity
+     */
     public void changeStats(final Context activity){
         changeStatsOnStart();
         int z = 60*30;
@@ -189,6 +195,9 @@ public class MainActivity extends AppCompatActivity {
         timer.schedule(timeTask, 0l, 1000*z);
     }
 
+    /**
+     * Decreases or increses Health depending on the other stats
+     */
     private void changeHealth(){
         int health = SQLQuerys.loadIntFromDatabase(id, this, "health");
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
@@ -219,6 +228,9 @@ public class MainActivity extends AppCompatActivity {
         Log.i("TestStats", "health " + health);
     }
 
+    /**
+     * Decreases Happyness
+     */
     private void changeHappyness(){
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
         happyness -= 2;
@@ -232,6 +244,9 @@ public class MainActivity extends AppCompatActivity {
         Log.i("TestStats", "happyness " + happyness);
     }
 
+    /**
+     * Decreases Hunger
+     */
     private void changeHunger(){
         int hunger = SQLQuerys.loadIntFromDatabase(id, this, "hunger");
         hunger -= 2;
@@ -245,6 +260,9 @@ public class MainActivity extends AppCompatActivity {
         Log.i("TestStats", "hunger " + hunger);
     }
 
+    /**
+     * Changes Stats depending on how long the pet wasn't looked after
+     */
     private void changeStatsOnStart(){
         int lastlogin = SQLQuerys.loadIntFromDatabase(id, this, "lastlogin");
 
