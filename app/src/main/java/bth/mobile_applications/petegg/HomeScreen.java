@@ -102,6 +102,10 @@ public class HomeScreen extends AppCompatActivity {
      */
     private void displayStats(){
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
+        if(happyness > 100){
+            happyness = 100;
+            SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
+        }
         TextView happy = (TextView) findViewById(R.id.joy);
         happy.setText("Joy: " + happyness);
 
@@ -274,6 +278,7 @@ public class HomeScreen extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         lightSensor.onResume();
+        displayStats();
     }
 
     protected void onPause() {
