@@ -177,14 +177,16 @@ public class HomeScreen extends AppCompatActivity {
      * Goes to the Outside Activity
      */
     private void goOutside(){
-        ImageView goOutsideButton = (ImageView) findViewById(R.id.doorButton);
+        if(MainActivity.locOn) {
+            ImageView goOutsideButton = (ImageView) findViewById(R.id.doorButton);
 
-        goOutsideButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomeScreen.this, Outside.class));
-            }
-        });
+            goOutsideButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(HomeScreen.this, Outside.class));
+                }
+            });
+        }
     }
 
     /**
@@ -249,7 +251,7 @@ public class HomeScreen extends AppCompatActivity {
         float currentLux = values[0];
         if(currentLux > 100){
             lastTime = System.currentTimeMillis();
-            Log.i("TestLight", "Pet is no longer sleeping");
+            //Log.i("TestLight", "Pet is no longer sleeping");
             windowChange(true);
         }else{
             if(lastTime == 0){

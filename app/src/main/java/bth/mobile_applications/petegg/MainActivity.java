@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     long id;
     public static boolean devMode;
+    public static boolean locOn;
+    public static boolean notOn;
 
     /**
      * reminder: onCreate = main-function of the Activity window
@@ -65,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
         SQLQuerys.saveIntToDB(id,this, "lastlogin", (int) System.currentTimeMillis());
         devMode = true;
-
+        locOn = true;
+        notOn = true;
 
     }
 
@@ -271,7 +274,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        startService(new Intent(this, NotificationService.class));
+        if(notOn) {
+            startService(new Intent(this, NotificationService.class));
+        }
         Log.i("TestNotification", "Service started");
     }
 
