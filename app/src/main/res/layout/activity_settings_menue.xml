@@ -28,8 +28,8 @@
 
             <CheckBox
                 android:id="@+id/location_toggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="285dp"
+                android:layout_height="63dp"
                 android:text="@string/allow_petegg_to_receive_information_about_current_location"
                 app:layout_constraintBottom_toTopOf="@+id/developer_mode"
                 app:layout_constraintEnd_toEndOf="parent"
