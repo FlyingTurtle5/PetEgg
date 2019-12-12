@@ -37,37 +37,15 @@ public class NameEgg extends AppCompatActivity {
         saveAndContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //writeFile();
                 long id = saveInitDatabase();
                 HomeScreen.setId(id);
-                startActivity(new Intent(NameEgg.this, HomeScreen.class));
+                Intent a = new Intent(NameEgg.this, HomeScreen.class);
+                a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(a);
+                //startActivity(new Intent(NameEgg.this, HomeScreen.class));
             }
         });
     }
-
-
-    /**
-     * saves the name to the internal Storage
-     */
-    /*
-    public void writeFile(){
-
-        EditText nameToSave = (EditText) findViewById(R.id.nameField);
-        String name = nameToSave.getText().toString();
-        if(name==""){
-            name = "Eggbert";
-        }
-
-        try {
-            FileOutputStream fileOutputStream = openFileOutput("PetEggFile.txt", MODE_PRIVATE);
-            fileOutputStream.write(name.getBytes());
-            fileOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    */
 
     /**
      * Creates a new row entry for the new pet and returns the primary key
@@ -114,10 +92,10 @@ public class NameEgg extends AppCompatActivity {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 final float progress = (float) animation.getAnimatedValue();
-                final float width = backgroundOne.getWidth();
-                final float translationX = width * progress;
-                backgroundOne.setTranslationX(translationX);
-                backgroundTwo.setTranslationX(translationX - width);
+                final float height = backgroundOne.getHeight();
+                final float translationY = height * progress;
+                backgroundOne.setTranslationY(translationY);
+                backgroundTwo.setTranslationY(translationY - height);
             }
         });
         animator.start();
