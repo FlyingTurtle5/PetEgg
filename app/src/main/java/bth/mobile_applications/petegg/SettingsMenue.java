@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Switch;
 
+import android.content.Context;
+
 public class SettingsMenue extends AppCompatActivity {
 
     static long id;
@@ -101,9 +103,12 @@ public class SettingsMenue extends AppCompatActivity {
     private void toggle_dev_mode(){
 
         Switch dev_mode_on = (Switch) findViewById(R.id.developer_mode);
+        FrameLayout dev_frame = findViewById(R.id.dev_frame);
         if(MainActivity.devMode){
+            dev_frame.setVisibility(View.VISIBLE);
             dev_mode_on.setChecked(true);
         }else{
+            dev_frame.setVisibility(View.INVISIBLE);
             dev_mode_on.setChecked(false);
         }
 

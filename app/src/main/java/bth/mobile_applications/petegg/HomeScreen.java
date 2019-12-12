@@ -126,6 +126,10 @@ public class HomeScreen extends AppCompatActivity {
      */
     private void displayStats(){
         int happyness = SQLQuerys.loadIntFromDatabase(id, this, "happyness");
+        if(happyness > 100){
+            happyness = 100;
+            SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
+        }
         TextView happy = (TextView) findViewById(R.id.joy);
         happy.setText("Joy: " + happyness);
 
@@ -298,6 +302,7 @@ public class HomeScreen extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         lightSensor.onResume();
+        displayStats();
     }
 
     protected void onPause() {
@@ -329,9 +334,9 @@ public class HomeScreen extends AppCompatActivity {
                 firstTime = System.currentTimeMillis();
             }else{
                 long currentTime = System.currentTimeMillis();
-                int z = 10;
+                int z = 15;
                 if(MainActivity.devMode){
-                    z = 1;
+                    z = 5;
                 }
                 int happyness = 0;
                 if((currentTime - firstTime) > 6000*z){
@@ -347,6 +352,7 @@ public class HomeScreen extends AppCompatActivity {
                     }
 
                     SQLQuerys.saveIntToDB(id,this, "happyness", happyness);
+                    displayStats();
 
                 }
             }
