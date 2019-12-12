@@ -25,8 +25,8 @@ import java.util.TimerTask;
 public class Outside extends AppCompatActivity {
 
     Location lastLocation = null;
-    int allSteps = 0;
-    int restSteps = 0;
+    int allSteps;
+    int restSteps;
 
     String bestProvider;
     Criteria criteria;
@@ -51,6 +51,9 @@ public class Outside extends AppCompatActivity {
 
         TextView s = (TextView) findViewById(R.id.steps);
         s.setText("Steps: " + allSteps);
+
+        allSteps = 0;
+        restSteps = 0;
 
         //Location
         if(MainActivity.locOn) {
@@ -122,6 +125,7 @@ public class Outside extends AppCompatActivity {
      */
     private void bouningEgg() {
         final ImageView bouncingEgg = (ImageView) findViewById(R.id.outsidePet);
+        bouncingEgg.setImageResource(R.drawable.animal1);
 
         float f[] = new float[]{0f, 50f, 0f};
 
@@ -143,7 +147,7 @@ public class Outside extends AppCompatActivity {
         }
         while(restSteps > stepCost){
             restSteps -= stepCost;
-            happyness += 10;
+            happyness += 5;
             if(happyness > 100){
                 happyness = 100;
             }
