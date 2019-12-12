@@ -103,7 +103,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/health"
                     app:layout_constraintTop_toBottomOf="@+id/homescreenEgg"
-                    app:srcCompat="@android:drawable/btn_dialog" />
+                    app:srcCompat="@drawable/feedbutton" />
 
                 <ImageView
                     android:id="@+id/doorButton"
@@ -117,7 +117,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.763"
-                    app:srcCompat="@android:drawable/btn_dialog" />
+                    app:srcCompat="@drawable/doorbutton" />
 
                 <ImageView
                     android:id="@+id/settingsButton"
@@ -131,7 +131,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.002"
-                    app:srcCompat="@android:drawable/btn_dialog" />
+                    app:srcCompat="@drawable/optionsbutton" />
 
                 <ImageView
                     android:id="@+id/homescreenEgg"
@@ -202,6 +202,7 @@
                     android:id="@+id/happyStar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/homescreenEgg"
                     app:layout_constraintEnd_toEndOf="@+id/homescreenEgg"
                     app:layout_constraintHorizontal_bias="0.75"
@@ -214,6 +215,7 @@
                     android:id="@+id/happyStar1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/homescreenEgg"
                     app:layout_constraintEnd_toEndOf="@+id/homescreenEgg"
                     app:layout_constraintHorizontal_bias="0.75"
@@ -226,6 +228,7 @@
                     android:id="@+id/happyStar2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/homescreenEgg"
                     app:layout_constraintEnd_toEndOf="@+id/homescreenEgg"
                     app:layout_constraintHorizontal_bias="0.75"

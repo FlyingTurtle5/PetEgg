@@ -2,6 +2,7 @@ package bth.mobile_applications.petegg;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.provider.BaseColumns;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewDebug;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,36 +50,53 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
 
         SQLQuerys querys = new SQLQuerys();
-        changeName(querys.loadStringFromDatabase(id,this,"petname"));
+        changeName(querys.loadStringFromDatabase(id, this, "petname"));
         changeStats(this);
         displayStats();
-        lightSensor = new LightSensor((SensorManager)getSystemService(SENSOR_SERVICE), this);
+        lightSensor = new LightSensor((SensorManager) getSystemService(SENSOR_SERVICE), this);
         goOutside();
         goSettings();
         feed(this);
         calculateAge();
 
         //swipe
-        ImageView view = (ImageView)findViewById(R.id.homescreenEgg);
+        ImageView view = (ImageView) findViewById(R.id.homescreenEgg);
         view.setOnTouchListener(new OnSwipeTouchListener(this) {
             public void onSwipe() {
                 Log.i("TestSwipe", "Swiped");
                 changeHappyness();
+                setStarsVisible(true);
                 happyStars();
+                setStarsVisible(false);
             }
         });
 
     }
 
 
+    private void setStarsVisible(Boolean visible) {
+        ImageView star = (ImageView) findViewById(R.id.happyStar);
+        ImageView star1 = (ImageView) findViewById(R.id.happyStar1);
+        ImageView star2 = (ImageView) findViewById(R.id.happyStar2);
+
+        if(visible == true){
+        star.setVisibility(View.VISIBLE);
+        star1.setVisibility(View.VISIBLE);
+        star2.setVisibility(View.VISIBLE);
+        }else{
+            star.setVisibility(View.INVISIBLE);
+            star1.setVisibility(View.INVISIBLE);
+            star2.setVisibility(View.INVISIBLE);
+        }
+    }
+
     private void happyStars(){
         final ImageView star = (ImageView)findViewById(R.id.happyStar);
         final ImageView star1 = (ImageView)findViewById(R.id.happyStar1);
         final ImageView star2 = (ImageView)findViewById(R.id.happyStar2);
 
-        ValueAnimator starrain = ValueAnimator.ofFloat(0.0f, 1.0f);
-        starrain.setRepeatCount(2);
-        starrain.setDuration(100L);
+        final ValueAnimator starrain = ValueAnimator.ofFloat(0.0f, 1.0f);
+        starrain.setDuration(1000L);
         starrain.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
@@ -93,9 +112,13 @@ public class HomeScreen extends AppCompatActivity {
                         star1.setTranslationY(translationY - height);
                         star2.setTranslationX(translationX);
                         star2.setTranslationX(translationX + width);
+                        star2.setTranslationY(translationY);
+                        star2.setTranslationY(translationY + width);
+
                 }
         });
         starrain.start();
+
     }
 
     /**
