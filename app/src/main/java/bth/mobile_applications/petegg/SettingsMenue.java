@@ -43,7 +43,10 @@ public class SettingsMenue extends AppCompatActivity {
         saveAndContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SettingsMenue.this, HomeScreen.class));
+                Intent a = new Intent(SettingsMenue.this, HomeScreen.class);
+                a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(a);
+                //startActivity(new Intent(SettingsMenue.this, HomeScreen.class));
             }
         });
     }

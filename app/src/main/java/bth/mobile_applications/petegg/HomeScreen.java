@@ -266,7 +266,10 @@ public class HomeScreen extends AppCompatActivity {
             goOutsideButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(HomeScreen.this, Outside.class));
+                    Intent a = new Intent(HomeScreen.this, Outside.class);
+                    a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(a);
+                    //startActivity(new Intent(HomeScreen.this, Outside.class));
                 }
             });
         }
@@ -282,7 +285,10 @@ public class HomeScreen extends AppCompatActivity {
         saveAndContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeScreen.this, SettingsMenue.class));
+                Intent a = new Intent(HomeScreen.this, SettingsMenue.class);
+                a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(a);
+                //startActivity(new Intent(HomeScreen.this, SettingsMenue.class));
             }
         });
     }

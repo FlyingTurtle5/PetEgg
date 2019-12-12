@@ -83,8 +83,10 @@ public class Outside extends AppCompatActivity {
         continueToHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Outside.this, HomeScreen.class));
-                //finish(); //?
+                Intent a = new Intent(Outside.this, HomeScreen.class);
+                a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(a);
+                //startActivity(new Intent(Outside.this, HomeScreen.class));
             }
         });
     }

@@ -94,9 +94,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(eggAlive == true) {
                     HomeScreen.setId(id);
-                    startActivity(new Intent(MainActivity.this, HomeScreen.class));
+                    Intent a = new Intent(MainActivity.this, HomeScreen.class);
+                    a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(a);
+                    //startActivity(new Intent(MainActivity.this, HomeScreen.class));
                 }else{
-                    startActivity(new Intent(MainActivity.this, NameEgg.class));
+                    Intent a = new Intent(MainActivity.this, NameEgg.class);
+                    a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(a);
+                    //startActivity(new Intent(MainActivity.this, NameEgg.class));
                 }
             }
         });
