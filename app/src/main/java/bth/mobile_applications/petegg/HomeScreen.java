@@ -271,7 +271,7 @@ public class HomeScreen extends AppCompatActivity {
         long currentSwipe = System.currentTimeMillis();
 
         if((currentSwipe - lastSwipe) < 6000*60*30 ){
-            happyness += 1;
+            happyness += 3;
             if(happyness > 100){
                 happyness = 100;
             }
@@ -334,16 +334,16 @@ public class HomeScreen extends AppCompatActivity {
                 firstTime = System.currentTimeMillis();
             }else{
                 long currentTime = System.currentTimeMillis();
-                int z = 15;
+                int z = 5;
                 if(MainActivity.devMode){
-                    z = 5;
+                    z = 2;
                 }
                 int happyness = 0;
-                if((currentTime - firstTime) > 6000*z){
+                if((currentTime - firstTime) > 6000*60*z){
                     //Pet is sleeping (after z minutes)
                     //Log.i("TestLight", "Pet is sleeping");
                     windowChange(false);
-                    long time = (currentTime - lastTime)/6000; //in minutes
+                    long time = (currentTime - lastTime)/6000*60; //in minutes
 
                     //every z*3 minutes happyness will increase
                     for(int i = 0; i < time; i += z*3){
