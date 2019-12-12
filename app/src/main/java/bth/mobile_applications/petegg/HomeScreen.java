@@ -52,6 +52,7 @@ public class HomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        lastChange = System.currentTimeMillis();
 
         SQLQuerys querys = new SQLQuerys();
         changeName(querys.loadStringFromDatabase(id, this, "petname"));
@@ -179,6 +180,7 @@ public class HomeScreen extends AppCompatActivity {
         }
         if((currentTime - lastChange) > 1000*60*z){
             Log.i("TestLight", "Windowchange");
+            lastChange = currentTime;
             ImageView window = (ImageView) findViewById(R.id.window);
             if (awake) {
                 window.setImageResource(R.drawable.window);
