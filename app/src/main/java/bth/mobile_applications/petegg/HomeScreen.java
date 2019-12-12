@@ -52,6 +52,7 @@ public class HomeScreen extends AppCompatActivity {
         displayStats();
         lightSensor = new LightSensor((SensorManager)getSystemService(SENSOR_SERVICE), this);
         goOutside();
+        goSettings();
         feed(this);
         calculateAge();
 
@@ -183,6 +184,20 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomeScreen.this, Outside.class));
+            }
+        });
+    }
+
+    /**
+     * Go to Menue Activity
+     */
+    private void goSettings() {
+        ImageView saveAndContinue = (ImageView) findViewById(R.id.settingsButton);
+
+        saveAndContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeScreen.this, SettingsMenue.class));
             }
         });
     }

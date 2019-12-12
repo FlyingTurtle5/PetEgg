@@ -15,4 +15,9 @@
     <string name="hint">Eggbert</string>
     <string name="autofill">Eggbert</string>
     <string name="nameYourPet">nameOfYourPet</string>
+    <string name="activate_developer_menue">Activate Developer Menue</string>
+    <string name="back">Back</string>
+    <string name="receive_notifications_from_petegg">Receive notifications from PetEgg.</string>
+    <string name="health">health</string>
+    <string name="change_pet_health">change pet health</string>
 </resources>
